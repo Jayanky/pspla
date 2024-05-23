@@ -199,6 +199,27 @@ void psplaVec3Sum(float *v1, float *sout);
 void psplaVec4Sum(float *v1, float *sout);
 
 /*
+    Get the absolute value of each element in a vector.
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaVec2AbsoluteValue(float *v1, float *vout);
+
+/*
+    Get the absolute value of each element in a vector.
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaVec3AbsoluteValue(float *v1, float *vout);
+
+/*
+    Get the absolute value of each element in a vector.
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaVec4AbsoluteValue(float *v1, float *vout);
+
+/*
     Get the dot product of two vectors.
     @param v1 first vector
     @param v2 second vector
@@ -272,6 +293,27 @@ void psplaVec3UnitVector(float *v1, float *vout);
 void psplaVec4UnitVector(float *v1, float *vout);
 
 /*
+    Round each element of a vector to the nearest whole number.
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaVec2Round(float *v1, float *vout);
+
+/*
+    Round each element of a vector to the nearest whole number.
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaVec3Round(float *v1, float *vout);
+
+/*
+    Round each element of a vector to the nearest whole number.
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaVec4Round(float *v1, float *vout);
+
+/*
     Get the unit norm of a quaternion.
     @param v1 input quaternion
     @param vout output quaternion
@@ -294,45 +336,59 @@ void psplaCosine(float *s1, float *sout);
 
 /*
     Get the sine of each vector element in π/2 radians.
-    @param s1 input vector
-    @param s2 output vector of sines
+    @param v1 input vector
+    @param v2 output vector of sines
 */
 void psplaVec2Sine(float *v1, float *vout);
 
 /*
     Get the sine of each vector element in π/2 radians.
-    @param s1 input vector
-    @param s2 output vector of sines
+    @param v1 input vector
+    @param v2 output vector of sines
 */
 void psplaVec3Sine(float *v1, float *vout);
 
 /*
     Get the sine of each vector element in π/2 radians.
-    @param s1 input vector
-    @param s2 output vector of sines
+    @param v1 input vector
+    @param v2 output vector of sines
 */
 void psplaVec4Sine(float *v1, float *vout);
 
 /*
     Get the Cosine of each vector element in π/2 radians.
-    @param s1 input vector
-    @param s2 output vector of cosines
+    @param v1 input vector
+    @param v2 output vector of cosines
 */
 void psplaVec2Cosine(float *v1, float *vout);
 
 /*
     Get the Cosine of each vector element in π/2 radians.
-    @param s1 input vector
-    @param s2 output vector of cosines
+    @param v1 input vector
+    @param v2 output vector of cosines
 */
 void psplaVec3Cosine(float *v1, float *vout);
 
 /*
     Get the Cosine of each vector element in π/2 radians.
-    @param s1 input vector
-    @param s2 output vector of cosines
+    @param v1 input vector
+    @param v2 output vector of cosines
 */
 void psplaVec4Cosine(float *v1, float *vout);
+
+/*
+    Get the Arcsine of a scalar in π/2 radians.
+    @param s1 input vector
+    @param sout output arcsine
+*/
+void psplaArcsine(float *s1, float *sout);
+
+/*
+    Get the Arccosine of a scalar in π/2 radians.
+    @param s1 input vector
+    @param sout output arccosine
+*/
+void psplaArccosine(float *s1, float *sout);
 
 /*
     Create a 3x3 rotation matrix. Rotation vector values should be in π/2 radians.
