@@ -226,6 +226,27 @@ psplaVec4Sum:
     sv.s s001, 0($a1)
     jr $ra
 
+.globl psplaVec2AbsoluteValue
+psplaVec2AbsoluteValue:
+    lv.q r000, 0($a0)
+    vabs.p r000, r000
+    sv.q r000, 0($a1)
+    jr $ra
+
+.globl psplaVec3AbsoluteValue
+psplaVec3AbsoluteValue:
+    lv.q r000, 0($a0)
+    vabs.t r000, r000
+    sv.q r000, 0($a1)
+    jr $ra
+
+.globl psplaVec4AbsoluteValue
+psplaVec4AbsoluteValue:
+    lv.q r000, 0($a0)
+    vabs.q r000, r000
+    sv.q r000, 0($a1)
+    jr $ra
+
 .globl psplaVec3CrossProduct
 psplaVec3CrossProduct:
     singleOpVector vcrsp, t
@@ -297,6 +318,30 @@ psplaVec4UnitVector:
     unitVecOp q
     jr $ra
 
+.globl psplaVec2Round
+psplaVec2Round:
+    lv.q r000, 0($a0)
+    vf2in.p r000, r000, 0
+    vi2f.p r000, r000, 0
+    sv.q r000, 0($a1)
+    jr $ra
+
+.globl psplaVec3Round
+psplaVec3Round:
+    lv.q r000, 0($a0)
+    vf2in.t r000, r000, 0
+    vi2f.t r000, r000, 0
+    sv.q r000, 0($a1)
+    jr $ra
+
+.globl psplaVec4Round
+psplaVec4Round:
+    lv.q r000, 0($a0)
+    vf2in.q r000, r000, 0
+    vi2f.q r000, r000, 0
+    sv.q r000, 0($a1)
+    jr $ra
+
 .globl psplaSine
 psplaSine:
     lv.s s000, 0($a0)
@@ -339,6 +384,45 @@ psplaVec3Cosine:
 .globl psplaVec4Cosine
 psplaVec4Cosine:
     trigOpVector vcos, q
+    jr $ra
+
+.globl psplaArcsine
+psplaArcsine:
+    lv.s s000, 0($a0)
+    vfim.s s001, 0    
+    vfim.s s002, 0
+    vfim.s s003, 30
+    vfim.s s020, 1
+Arcsine_loop:
+    vcmp.s lt, s002, s003
+    vadd.s s002, s002, s020
+    vsin.s s010, s001
+    vsub.s s010, s010, s000
+    vcos.s s011, s001
+    vdiv.s s012, s010, s011
+    vsub.s s001, s001, s012
+    bvtl 0, Arcsine_loop
+    sv.s s001, 0($a1)
+    jr $ra
+
+.globl psplaArccosine
+psplaArccosine:
+    lv.s s000, 0($a0)
+    vfim.s s001, 1    
+    vfim.s s002, 0
+    vfim.s s003, 30
+    vfim.s s020, 1
+Arccosine_loop:
+    vcmp.s lt, s002, s003
+    vadd.s s002, s002, s020
+    vcos.s s010, s001
+    vsub.s s010, s010, s000
+    vsin.s s011, s001
+    vneg.s s011, s011
+    vdiv.s s012, s010, s011
+    vsub.s s001, s001, s012
+    bvtl 0, Arccosine_loop
+    sv.s s001, 0($a1)
     jr $ra
 
 .globl psplaVec3RotationMatrix
