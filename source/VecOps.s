@@ -425,6 +425,21 @@ Arccosine_loop:
     sv.s s001, 0($a1)
     jr $ra
 
+.globl psplaVecNegate
+psplaVecNegate:
+    lv.q r000, 0($a0)
+    vneg.q r000, r000
+    sv.q r000, 0($a1)
+    jr $ra
+
+.globl psplaMat2Copy
+.globl psplaVecCopy
+psplaMat2Copy:
+psplaVecCopy:
+    lv.q r000, 0($a0)
+    sv.q r000, 0($a1)
+    jr $ra
+
 .globl psplaVec3RotationMatrix
 psplaVec3RotationMatrix:
     lv.q r001, 0($a0)
@@ -770,4 +785,29 @@ psplaMat4Transpose:
     sv.q r103, 48($a1)
     jr $ra
 
+.globl psplaMat3Copy
+psplaMat3Copy:
+    sub $sp, $sp, 4
+    s.s $f0, 0($sp)
+    lv.q r000, 0($a0)
+    ulv.q r001, 12($a0)
+    ulv.q r002, 24($a0)
+    sv.q r000, 0($a1)
+    usv.q r001, 12($a1)
+    usv.q r002, 24($a1)
+    l.s $f0, 0($sp)
+    add $sp, $sp, 4
+    jr $ra
+
+.globl psplaMat4Copy
+psplaMat4Copy:
+    lv.q r000, 0($a0)
+    lv.q r001, 16($a0)
+    lv.q r002, 32($a0)
+    lv.q r003, 48($a0)
+    sv.q r000, 0($a1)
+    sv.q r001, 16($a1)
+    sv.q r002, 32($a1)
+    sv.q r003, 48($a1)
+    jr $ra
 

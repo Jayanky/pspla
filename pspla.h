@@ -314,6 +314,24 @@ void psplaVec3Round(float *v1, float *vout);
 void psplaVec4Round(float *v1, float *vout);
 
 /*
+    Do linear interpolation between two quaternions.
+    @param v1 vector 1
+    @param v2 vector 2
+    @param s1 how close you want to go from vector 1 to vector 2 (0 = v1, 1 = v2).
+    @param vout output vector
+*/
+void psplaVec4QuaternionLerp(float *v1, float *v2, float *s1, float *vout);
+
+/*
+    Do spherical linear interpolation between two quaternions.
+    @param v1 vector 1
+    @param v2 vector 2
+    @param s1 how close you want to go from vector 1 to vector 2 (0 = v1, 1 = v2).
+    @param vout output vector
+*/
+void psplaVec4QuaternionSlerp(float *v1, float *v2, float *s1, float *vout);
+
+/*
     Get the unit norm of a quaternion.
     @param v1 input quaternion
     @param vout output quaternion
@@ -389,6 +407,20 @@ void psplaArcsine(float *s1, float *sout);
     @param sout output arccosine
 */
 void psplaArccosine(float *s1, float *sout);
+
+/*  
+    Negate a vector.
+    @param v1 input vector
+    @param vout negated vector
+*/
+void psplaVecNegate(float *v1, float *vout);
+
+/*
+    Copy a vector.
+    @param v1 source vector
+    @param v2 destination vector
+*/
+void psplaVecCopy(float *v1, float *vout);
 
 /*
     Create a 3x3 rotation matrix. Rotation vector values should be in π/2 radians.
@@ -617,5 +649,26 @@ void psplaMat3Transpose(float *m1, float *mout);
     @param mout transposed matrix
 */
 void psplaMat4Transpose(float *m1, float *mout);
+
+/*
+    Copy a matrix.
+    @param m1 source matrix
+    @param m2 destination matrix
+*/
+void psplaMat2Copy(float *m1, float *mout);
+
+/*
+    Copy a matrix.
+    @param m1 source matrix
+    @param m2 destination matrix
+*/
+void psplaMat3Copy(float *m1, float *mout);
+
+/*
+    Copy a matrix.
+    @param m1 source matrix
+    @param m2 destination matrix
+*/
+void psplaMat4Copy(float *m1, float *mout);
 
 #endif
