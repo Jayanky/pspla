@@ -10,7 +10,7 @@ Firstly, all vector and matrix data passed to pspla functions must be 16-byte al
 
 Similarly, all scalar values passed to pspla functions must be 4-byte aligned.
 
-Wrong:
+Incorrect:
 ```
 float vector[4] = {...};
 float scalar = 0;
@@ -23,7 +23,7 @@ float scalar __attribute__((aligned(4))) = 0;
 ### Finding a function
 All functions are prefixed with `pspla`, and are then followed by the type of data they are used for.
 
-The types of data are `Vec2`, `Vec3`, `Vec4`, `Mat2`, `Mat3`, and `Mat4`.
+The types of data are `Vec2`, `Vec3`, `Vec4`, `Mat2`, `Mat3`, and `Mat4`, though vector functions that work with length 2-4 are simply prefaced with `Vec`.
 
 Quaternions fall under the `Vec4` category.
 
