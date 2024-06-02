@@ -1,58 +1,65 @@
-#include "../pspla.h"
+#include "../pspla2.h"
 
-void psplaVec4QuaternionInverse(float *v1, float *vout) {
-    float conjugate[4] __attribute__((aligned(16)));
-    float norm __attribute__((aligned(4)));
-    psplaVec4QuaternionConjugate(v1, conjugate);
-    psplaVec4QuaternionNorm(v1, &norm);
+void psplaQuatInverseU(float *q1, float *qout) {
+    float conjugate[4] PSPLA_ALIGN;
+    psplaQuatConjugateU(q1, conjugate);
+    float norm = psplaQuatNormU(q1);
 
-    norm*=norm;
-    norm=1/norm;
+    norm = 1/(norm * norm);
 
-    psplaVec4Scale(conjugate, &norm, vout);
+    psplaVec4ScaleU(conjugate, norm, qout);
 }
 
-void psplaVec4QuaternionLerp(float *v1, float *v2, float *s1, float *vout) {
-    float sinv __attribute__((aligned(4))) = 1 - *s1;
+void psplaQuatInverseA(float *q1, float *qout) {
+    float conjugate[4] PSPLA_ALIGN;
+    psplaQuatConjugateA(q1, conjugate);
+    float norm = psplaQuatNormA(q1);
 
-    float v1scale[4] __attribute__((aligned(16)));
-    float v2scale[4] __attribute__((aligned(16)));
-    psplaVec4Scale(v1, &sinv, v1scale);
-    psplaVec4Scale(v2, s1, v2scale);
+    norm = 1/(norm * norm);
 
-    psplaVec4Add(v1scale, v2scale, vout);  
+    psplaVecVScaleA(conjugate, norm, qout);
 }
 
-void psplaVec4QuaternionSlerp(float *v1, float *v2, float *s1, float *vout) {
-    float v2c[4] __attribute__((aligned(16)));
-    psplaVecCopy(v2, v2c);
-        
-    float omega __attribute__((aligned(4)));
-    psplaVec4DotProduct(v1, v2c, &omega);
+void psplaQuatSlerpU(float *q1, float *q2, float s1, float *qout) {
+    float r1[4] PSPLA_ALIGN;
+    float r2[4] PSPLA_ALIGN;
 
-    if(omega < 0) {
-        psplaVecNegate(v2c, v2c);
-        psplaVec4DotProduct(v1, v2c, &omega);
+    float cosOmega = psplaVec4DotProductU(q1, q2);
+
+    if(psplaAbsoluteValue(cosOmega) >= 1.0) {
+        psplaVec4CopyU(q1, qout);
+        return;
     }
 
-    psplaArccosine(&omega, &omega);
+    float omega = psplaArccosine(cosOmega);
+    float sinOmega = psplaSquareRoot(1.0 - (cosOmega * cosOmega));
 
-    float sinv __attribute__((aligned(4))) = 1 - *s1;
+    float p1 = psplaSine(((1 - s1) * omega) / sinOmega);
+    float p2 = psplaSine((s1 * omega) / sinOmega);
 
-    float p1 __attribute__((aligned(4))) = sinv * omega;
-    float p2 __attribute__((aligned(4))) = *s1 * omega;
+    psplaVec4ScaleU(q1, p1, r1);
+    psplaVec4ScaleU(q2, p2, r2);
+    psplaVec4AddU(r1, r2, qout);
+}
 
-    psplaSine(&omega, &omega);
-    psplaSine(&p1, &p1);
-    psplaSine(&p2, &p2);
+void psplaQuatSlerpA(float *q1, float *q2, float s1, float *qout) {
+    float r1[4] PSPLA_ALIGN;
+    float r2[4] PSPLA_ALIGN;
 
-    p1 /= omega;
-    p2 /= omega;
+    float cosOmega = psplaVec4DotProductA(q1, q2);
 
-    float v1scale[4] __attribute__((aligned(16)));
-    float v2scale[4] __attribute__((aligned(16)));
-    psplaVec4Scale(v1, &p1, v1scale);
-    psplaVec4Scale(v2c, &p2, v2scale);
+    if(psplaAbsoluteValue(cosOmega) >= 1.0) {
+        psplaVecVCopyA(q1, qout);
+        return;
+    }
 
-    psplaVec4Add(v1scale, v2scale, vout);    
+    float omega = psplaArccosine(cosOmega);
+    float sinOmega = psplaSquareRoot(1.0 - (cosOmega * cosOmega));
+
+    float p1 = psplaSine(((1 - s1) * omega) / sinOmega);
+    float p2 = psplaSine((s1 * omega) / sinOmega);
+
+    psplaVecVScaleA(q1, p1, r1);
+    psplaVecVScaleA(q2, p2, r2);
+    psplaVecVAddA(r1, r2, qout);
 }
