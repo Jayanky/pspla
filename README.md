@@ -24,3 +24,5 @@ float vectorA[4] PSPLA_ALIGN;  // Can be used with both aligned and unaligned fu
 All functions are prefixed with `pspla`, and are then followed by the type of data they are used for.
 
 The types of data are `Vec2`, `Vec3`, `Vec4`, `Mat2`, `Mat3`, `Mat4`, and `Quat`. Functions that work with any vector size are given the type `VecV`.
+
+Functions that work with scalar values don't have a type prefix or an alignment suffix (i.e. `psplaArccosine`, `psplaRandom`, etc.)
