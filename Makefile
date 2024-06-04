@@ -9,7 +9,7 @@ COBJ := cpspla.o
 AR := psp-ar
 AS := psp-as
 GCC := psp-gcc
-LIB := libpspla.a
+LIB := libpspla2.a
 
 all: $(ASMOBJ) $(COBJ)
 	$(AR) -rcs $(LIB) $(ASMOBJ) $(COBJ)
