@@ -1452,6 +1452,20 @@ void psplaQuatSlerpU(float *q1, float *q2, float s1, float *qout);
 void psplaQuatSlerpA(float *q1, float *q2, float s1, float *qout);
 
 /*
+    Get a rotation matrix from a quaternion - Unaligned
+    @param q1 input quaternion
+    @param mout output matrix
+*/
+void psplaQuatRotationMatrixU(float *q1, float *mout);
+
+/*
+    Get a rotation matrix from a quaternion - Aligned
+    @param q1 input quaternion
+    @param mout output matrix
+*/
+void psplaQuatRotationMatrixA(float *q1, float *mout);
+
+/*
     Add two matrices - Unaligned
     @param m1 first matrix
     @param m2 second matrix
@@ -1789,5 +1803,47 @@ void psplaMat3InverseA(float *m1, float s1, float *mout);
     @param mout inverse matrix
 */
 void psplaMat4InverseA(float *m1, float s1, float *mout);
+
+/*
+    Convert a matrix 2 to a matrix 3 - Unaligned
+    @param m1 input matrix
+    @param mout output matrix
+*/
+void psplaMat2ToMatrix3U(float *m1, float *mout);
+
+/*
+    Convert a matrix 2 to a matrix 3 - Aligned
+    @param m1 input matrix
+    @param mout output matrix
+*/
+void psplaMat2ToMatrix3A(float *m1, float *mout);
+
+/*
+    Convert a matrix 2 to a matrix 4 - Unaligned
+    @param m1 input matrix
+    @param mout output matrix
+*/
+void psplaMat2ToMatrix4U(float *m1, float *mout);
+
+/*
+    Convert a matrix 2 to a matrix 4 - Aligned
+    @param m1 input matrix
+    @param mout output matrix
+*/
+void psplaMat2ToMatrix4A(float *m1, float *mout);
+
+/*
+    Convert a matrix 3 to a matrix 4 - Unaligned
+    @param m1 input matrix
+    @param mout output matrix
+*/
+void psplaMat3ToMatrix4U(float *m1, float *mout);
+
+/*
+    Convert a matrix 3 to a matrix 4 - Aligned
+    @param m1 input matrix
+    @param mout output matrix
+*/
+void psplaMat3ToMatrix4A(float *m1, float *mout);
 
 #endif
