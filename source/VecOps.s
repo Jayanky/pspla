@@ -1489,6 +1489,56 @@ gfunc psplaQuatConjugateA
     sv.q r000, 0($a1)
     jr $ra
 
+gfunc psplaQuatRotationMatrixU
+    pushf $f0
+    ulv.q r000, 0($a0)
+    popf $f0
+    vfim.s s001, 2
+    vfim.s s011, 1
+    vmul.q r100, r000[x,y,y,0], r000[x,z,w,0]
+    vmul.q r101, r000[y,x,x,0], r000[y,w,z,0]
+    vmul.q r200, r000[y,x,z,0], r000[z,x,w,0]
+    vmul.q r201, r000[x,z,x,0], r000[w,z,y,0]
+    vmul.q r300, r000[y,z,x,0], r000[w,w,x,0]
+    vmul.q r301, r000[x,x,w,0], r000[z,y,w,0]
+    vadd.t r102, r100, r101[x,-y,z]
+    vadd.t r202, r200, r201[x,y,-z]
+    vadd.t r302, r300, r301[-x,y,z]
+    vscl.t r102, r102, s001
+    vscl.t r202, r202, s001
+    vscl.t r302, r302, s001
+    vsub.s s102, s102, s011
+    vsub.s s212, s212, s011
+    vsub.s s322, s322, s011
+    usv.q r102, 0($a1)
+    usv.q r202, 12($a1)
+    svt s302, s312, s322, $a1, 24
+    jr $ra
+
+gfunc psplaQuatRotationMatrixA
+    lv.q r000, 0($a0)
+    vfim.s s001, 2
+    vfim.s s011, 1
+    vmul.q r100, r000[x,y,y,0], r000[x,z,w,0]
+    vmul.q r101, r000[y,x,x,0], r000[y,w,z,0]
+    vmul.q r200, r000[y,x,z,0], r000[z,x,w,0]
+    vmul.q r201, r000[x,z,x,0], r000[w,z,y,0]
+    vmul.q r300, r000[y,z,x,0], r000[w,w,x,0]
+    vmul.q r301, r000[x,x,w,0], r000[z,y,w,0]
+    vadd.t r102, r100, r101[x,-y,z]
+    vadd.t r202, r200, r201[x,y,-z]
+    vadd.t r302, r300, r301[-x,y,z]
+    vscl.t r102, r102, s001
+    vscl.t r202, r202, s001
+    vscl.t r302, r302, s001
+    vsub.s s102, s102, s011
+    vsub.s s212, s212, s011
+    vsub.s s322, s322, s011
+    sv.q r102, 0($a1)
+    usv.q r202, 12($a1)
+    svt s302, s312, s322, $a1, 24
+    jr $ra
+
 gfunc psplaMat3AddU
     singleOpMat3U vadd
     jr $ra
@@ -1903,4 +1953,72 @@ gfunc psplaMat4InverseA
     sv.q r301, 16($a1)
     sv.q r302, 32($a1)
     sv.q r303, 48($a1)
+    jr $ra
+
+gfunc psplaMat2ToMatrix3U
+    pushf $f0
+    lm2u 0, $a0
+    popf $f0
+    vidt.q c020
+    vidt.q r002
+    usv.q r000, 0($a1)
+    usv.q r001, 12($a1)
+    svt s002, s012, s022, $a1, 24
+    jr $ra
+
+gfunc psplaMat2ToMatrix3A
+    lm2a 0, $a0
+    vidt.q c020
+    vidt.q r002
+    sv.q r000, 0($a1)
+    usv.q r001, 12($a1)
+    usv.q r002, 24($a1)
+    jr $ra
+
+gfunc psplaMat2ToMatrix4U
+    pushf $f0
+    lm2u 0, $a0
+    popf $f0
+    vidt.q c020
+    vidt.q r002
+    vidt.q c030
+    vidt.q r003
+    usv.q r000, 0($a1)
+    usv.q r001, 16($a1)
+    usv.q r002, 32($a1)
+    usv.q r003, 48($a1)
+    jr $ra
+
+gfunc psplaMat2ToMatrix4A
+    lm2a 0, $a0
+    vidt.q c020
+    vidt.q r002
+    vidt.q c030
+    vidt.q r003
+    sv.q r000, 0($a1)
+    sv.q r001, 16($a1)
+    sv.q r002, 32($a1)
+    sv.q r003, 48($a1)
+    jr $ra
+
+gfunc psplaMat3ToMatrix4U
+    pushf $f0
+    lm3u 0, $a0
+    popf $f0
+    vidt.q c030
+    vidt.q r003
+    usv.q r000, 0($a1)
+    usv.q r001, 16($a1)
+    usv.q r002, 32($a1)
+    usv.q r003, 48($a1)
+    jr $ra
+
+gfunc psplaMat3ToMatrix4A
+    lm3a 0, $a0
+    vidt.q c030
+    vidt.q r003
+    sv.q r000, 0($a1)
+    sv.q r001, 16($a1)
+    sv.q r002, 32($a1)
+    sv.q r003, 48($a1)
     jr $ra
