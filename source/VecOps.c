@@ -63,3 +63,23 @@ void psplaQuatSlerpA(float *q1, float *q2, float s1, float *qout) {
     psplaVecVScaleA(q2, p2, r2);
     psplaVecVAddA(r1, r2, qout);
 }
+
+void psplaQuatRotateU(float *q1, float *q2, float *qout) {
+    float q2c[4] PSPLA_ALIGN;
+    psplaQuatConjugateU(q2, q2c);
+
+    float accumulator[4] PSPLA_ALIGN;
+    psplaQuatMultiplyU(q2, q1, accumulator);
+    psplaQuatMultiplyA(accumulator, q2c, accumulator);
+    psplaVec4CopyU(accumulator, qout);
+}
+
+void psplaQuatRotateA(float *q1, float *q2, float *qout) {
+    float q2c[4] PSPLA_ALIGN;
+    psplaQuatConjugateA(q2, q2c);
+
+    float accumulator[4] PSPLA_ALIGN;
+    psplaQuatMultiplyA(q2, q1, accumulator);
+    psplaQuatMultiplyA(accumulator, q2c, accumulator);
+    psplaVecVCopyA(accumulator, qout);
+}
