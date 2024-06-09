@@ -1216,6 +1216,54 @@ void psplaVec4ClampU(float *v1, float s1, float s2, float *vout);
 void psplaVecVClampA(float *v1, float s1, float s2, float *vout);
 
 /*
+    Create a new vector by reordering elements of the input vector - Unaligned
+    @param v1 vector to reorder
+    @param v2 vector of element indices 0-1
+    @param vout reordered vector
+*/
+void psplaVec2ReorderU(float *v1, int *v2, float *vout);
+
+/*
+    Create a new vector by reordering elements of the input vector - Unaligned
+    @param v1 vector to reorder
+    @param v2 vector of element indices 0-2
+    @param vout reordered vector
+*/
+void psplaVec3ReorderU(float *v1, int *v2, float *vout);
+
+/*
+    Create a new vector by reordering elements of the input vector - Unaligned
+    @param v1 vector to reorder
+    @param v2 vector of element indices 0-3
+    @param vout reordered vector
+*/
+void psplaVec4ReorderU(float *v1, int *v2, float *vout);
+
+/*
+    Create a new vector by reordering elements of the input vector - Aligned
+    @param v1 vector to reorder
+    @param v2 vector of element indices 0-1
+    @param vout reordered vector
+*/
+void psplaVec2ReorderA(float *v1, int *v2, float *vout);
+
+/*
+    Create a new vector by reordering elements of the input vector - Aligned
+    @param v1 vector to reorder
+    @param v2 vector of element indices 0-2
+    @param vout reordered vector
+*/
+void psplaVec3ReorderA(float *v1, int *v2, float *vout);
+
+/*
+    Create a new vector by reordering elements of the input vector - Aligned
+    @param v1 vector to reorder
+    @param v2 vector of element indices 0-3
+    @param vout reordered vector
+*/
+void psplaVec4ReorderA(float *v1, int *v2, float *vout);
+
+/*
     Generate a random floating pointer number
     @return A random number (0 <= x < 1)
 */
@@ -1450,6 +1498,22 @@ void psplaQuatSlerpU(float *q1, float *q2, float s1, float *qout);
     @param qout interpolated quaternion
 */
 void psplaQuatSlerpA(float *q1, float *q2, float s1, float *qout);
+
+/*
+    Rotate a pure quaternion (0, Vec3) by a quaternion - Unaligned
+    @param q1 pure input quaternion
+    @param q2 rotation quaternion
+    @param qout pure output quaternion
+*/
+void psplaQuatRotateU(float *q1, float *q2, float *qout);
+
+/*
+    Rotate a pure quaternion (0, Vec3) by a quaternion - Aligned
+    @param q1 pure input quaternion
+    @param q2 rotation quaternion
+    @param qout pure output quaternion
+*/
+void psplaQuatRotateA(float *q1, float *q2, float *qout);
 
 /*
     Get a rotation matrix from a quaternion - Unaligned
@@ -1845,5 +1909,53 @@ void psplaMat3ToMatrix4U(float *m1, float *mout);
     @param mout output matrix
 */
 void psplaMat3ToMatrix4A(float *m1, float *mout);
+
+/*
+    Multiply a matrix by a vector - Unaligned
+    @param m1 input matrix
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaMat2Vector2MultiplyU(float *m1, float *v1, float *vout);
+
+/*
+    Multiply a matrix by a vector - Unaligned
+    @param m1 input matrix
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaMat3Vector3MultiplyU(float *m1, float *v1, float *vout);
+
+/*
+    Multiply a matrix by a vector - Unaligned
+    @param m1 input matrix
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaMat4Vector4MultiplyU(float *m1, float *v1, float *vout);
+
+/*
+    Multiply a matrix by a vector - Aligned
+    @param m1 input matrix
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaMat2Vector2MultiplyA(float *m1, float *v1, float *vout);
+
+/*
+    Multiply a matrix by a vector - Aligned
+    @param m1 input matrix
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaMat3Vector3MultiplyA(float *m1, float *v1, float *vout);
+
+/*
+    Multiply a matrix by a vector - Aligned
+    @param m1 input matrix
+    @param v1 input vector
+    @param vout output vector
+*/
+void psplaMat4Vector4MultiplyA(float *m1, float *v1, float *vout);
 
 #endif

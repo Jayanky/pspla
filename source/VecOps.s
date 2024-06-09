@@ -1231,6 +1231,108 @@ gfunc psplaVecVClampA
     sv.q r000, 0($a1)
     jr $ra
 
+gfunc psplaVec2ReorderU
+    vfim.s s003, 4
+    pushf $f0
+    ulv.q r000, 0($a1)
+    popf $f0
+    vscl.p r000, r000, s003
+    mfv $t0, s000
+    mfv $t1, s010
+    add $t0, $t0, $a0
+    add $t1, $t1, $a0
+    lv.s s001, 0($t0)
+    lv.s s011, 0($t1)
+    svp s001, s011, $a2, 0
+    jr $ra
+
+gfunc psplaVec3ReorderU
+    vfim.s s003, 4
+    pushf $f0
+    ulv.q r000, 0($a1)
+    popf $f0
+    vscl.t r000, r000, s003
+    mfv $t0, s000
+    mfv $t1, s010
+    mfv $t2, s020
+    add $t0, $t0, $a0
+    add $t1, $t1, $a0
+    add $t2, $t2, $a0
+    lv.s s001, 0($t0)
+    lv.s s011, 0($t1)
+    lv.s s021, 0($t2)
+    svt s001, s011, s021, $a2, 0
+    jr $ra
+
+gfunc psplaVec4ReorderU
+    vfim.s s003, 4
+    pushf $f0
+    ulv.q r000, 0($a1)
+    popf $f0
+    vscl.q r000, r000, s003
+    mfv $t0, s000
+    mfv $t1, s010
+    mfv $t2, s020
+    mfv $t3, s030
+    add $t0, $t0, $a0
+    add $t1, $t1, $a0
+    add $t2, $t2, $a0
+    add $t3, $t3, $a0
+    lv.s s001, 0($t0)
+    lv.s s011, 0($t1)
+    lv.s s021, 0($t2)
+    lv.s s031, 0($t3)
+    usv.q r001, 0($a2)
+    jr $ra
+
+gfunc psplaVec2ReorderA
+    vfim.s s003, 4
+    lv.q r000, 0($a1)
+    vscl.p r000, r000, s003
+    mfv $t0, s000
+    mfv $t1, s010
+    add $t0, $t0, $a0
+    add $t1, $t1, $a0
+    lv.s s001, 0($t0)
+    lv.s s011, 0($t1)
+    sv.q r001, 0($a2)
+    jr $ra
+
+gfunc psplaVec3ReorderA
+    vfim.s s003, 4
+    lv.q r000, 0($a1)
+    vscl.t r000, r000, s003
+    mfv $t0, s000
+    mfv $t1, s010
+    mfv $t2, s020
+    add $t0, $t0, $a0
+    add $t1, $t1, $a0
+    add $t2, $t2, $a0
+    lv.s s001, 0($t0)
+    lv.s s011, 0($t1)
+    lv.s s021, 0($t2)
+    sv.q r001, 0($a2)
+    jr $ra
+
+gfunc psplaVec4ReorderA
+    vfim.s s003, 4
+    lv.q r000, 0($a1)
+    vscl.q r000, r000, s003
+    mfv $t0, s000
+    mfv $t1, s010
+    mfv $t2, s020
+    mfv $t3, s030
+    add $t0, $t0, $a0
+    add $t1, $t1, $a0
+    add $t2, $t2, $a0
+    add $t3, $t3, $a0
+    lv.s s001, 0($t0)
+    lv.s s011, 0($t1)
+    lv.s s021, 0($t2)
+    lv.s s031, 0($t3)
+    sv.q r001, 0($a2)
+    jr $ra
+
 gfunc psplaRandom
     vrndf1.s s000
     vsub.s s000, s000, s000[1]
@@ -2021,4 +2123,68 @@ gfunc psplaMat3ToMatrix4A
     sv.q r001, 16($a1)
     sv.q r002, 32($a1)
     sv.q r003, 48($a1)
+    jr $ra
+
+gfunc psplaMat2Vector2MultiplyU
+    pushf $f0
+    lm2u 0, $a0
+    ulv.q r002, 0($a1)
+    popf $f0
+    vdot.p s100, r000, r002
+    vdot.p s110, r001, r002
+    svp s100, s110, $a2, 0
+    jr $ra
+
+gfunc psplaMat3Vector3MultiplyU
+    pushf $f0
+    lm3u 0, $a0
+    ulv.q r003, 0($a1)
+    popf $f0
+    vdot.t s100, r000, r003
+    vdot.t s110, r001, r003
+    vdot.t s120, r002, r003
+    svt s100, s110, s120, $a2, 0
+    jr $ra
+
+gfunc psplaMat4Vector4MultiplyU
+    sub $sp, $sp, 8
+    s.s $f0, 4($sp)
+    s.s $f4, 0($sp)
+    lm4a 0, $a0
+    ulv.q r100, 0($a1)
+    l.s $f4, 0($sp)
+    l.s $f0, 4($sp)
+    add $sp, $sp, 8
+    vdot.q s101, r000, r100
+    vdot.q s111, r001, r100
+    vdot.q s121, r002, r100
+    vdot.q s131, r003, r100
+    usv.q r101, 0($a2)
+    jr $ra
+
+gfunc psplaMat2Vector2MultiplyA
+    lm2a 0, $a0
+    lv.q r002, 0($a1)
+    vdot.p s100, r000, r002
+    vdot.p s110, r001, r002
+    sv.q r100, 0($a2)
+    jr $ra   
+
+gfunc psplaMat3Vector3MultiplyA
+    lm3a 0, $a0
+    lv.q r003, 0($a1)
+    vdot.t s100, r000, r003
+    vdot.t s110, r001, r003
+    vdot.t s120, r002, r003
+    sv.q r100, 0($a2)
+    jr $ra 
+
+gfunc psplaMat4Vector4MultiplyA
+    lm4a 0, $a0
+    lv.q r100, 0($a1)
+    vdot.q s101, r000, r100
+    vdot.q s111, r001, r100
+    vdot.q s121, r002, r100
+    vdot.q s131, r003, r100
+    sv.q r101, 0($a2)
     jr $ra
