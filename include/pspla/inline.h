@@ -55,19 +55,19 @@
     }
 
 #define PSPLA_VEC_QWORD_FN_WORD_DECL(name, operation, type_in, type_out) \
-    PSPLA_VEC_QWORD_FN_WORD(pspla_##type_in##_##name, pspla_vfpu_##operation_, pspla_##type_in##_t, pspla_##type_out##_t)
+    PSPLA_VEC_QWORD_FN_WORD(pspla_##type_in##_##name, pspla_vfpu_##operation##_, pspla_##type_in##_t, pspla_##type_out##_t)
 
 #define PSPLA_VEC_WORD_FN_QWORD_DECL(name, operation, type_in, type_out) \
-    PSPLA_VEC_WORD_FN_QWORD(pspla_##type_in##_##name, pspla_vfpu_##operation_, pspla_##type_in##_t, pspla_##type_out##_t)
+    PSPLA_VEC_WORD_FN_QWORD(pspla_##type_in##_##name, pspla_vfpu_##operation##_, pspla_##type_in##_t, pspla_##type_out##_t)
 
 #define PSPLA_VEC_QWORD_FN_QWORD_DECL(name, operation, type_in, type_out) \
-    PSPLA_VEC_QWORD_FN_QWORD(pspla_##type_in##_##name, pspla_vfpu_##operation_, pspla_##type_in##_t, pspla_##type_out##_t)
+    PSPLA_VEC_QWORD_FN_QWORD(pspla_##type_in##_##name, pspla_vfpu_##operation##_, pspla_##type_in##_t, pspla_##type_out##_t)
 
 #define PSPLA_VEC_QWORD_FN_2QWORD_DECL(name, operation, type_in, type_out) \
-    PSPLA_VEC_QWORD_FN_2QWORD(pspla_##type_in##_##name, pspla_vfpu_##operation_, pspla_##type_in##_t, pspla_##type_out##_t)
+    PSPLA_VEC_QWORD_FN_2QWORD(pspla_##type_in##_##name, pspla_vfpu_##operation##_, pspla_##type_in##_t, pspla_##type_out##_t)
 
 #define PSPLA_VEC_QWORD_FN_QWORD_WORD_DECL(name, operation, type_in_a, type_in_b, type_out) \
-    PSPLA_VEC_QWORD_FN_QWORD_WORD(pspla_##type_in_a##_##name, pspla_vfpu_##operation_, pspla_##type_in_a##_t, pspla_##type_in_b##_t, pspla_##type_out##_t)
+    PSPLA_VEC_QWORD_FN_QWORD_WORD(pspla_##type_in_a##_##name, pspla_vfpu_##operation##_, pspla_##type_in_a##_t, pspla_##type_in_b##_t, pspla_##type_out##_t)
 
 static PSPLA_ALWAYS_INLINE pspla_f32_t pspla_m2f32_determinant(pspla_m2f32_t a) {
     pspla_f32_t word_out;
